@@ -52,5 +52,5 @@ function draw(){
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(bob4.bodies,{x:mouseX,y:mouseY});
+    Matter.Body.setPosition(bob4.bodies,{x:mouseX});
 }
