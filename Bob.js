@@ -1,19 +1,27 @@
-class Bob{
-    constructor(x,y,r){
-        var options = {
-            isStatic:false
-        }
-        this.bodies = Bodies.circle(x,y,r,options);
-        this.r = r;
-        World.add(world,this.bodies);
+class Pendulum{
+    constructor(x,y, color){
+        var options ={
+           ' restitution': 1,
+           'friction': 0,
+           'frictionAir':0.0,
+           'slop':1,
+           'inertia': Infinity
+        };
+        this.body = Bodies.rectangle(x, y, 40,40, options);
+        this.x= x;
+        this.y= y;
+        this.color = color;
+        World.add(world, this.body);
     }
-    display(){
-        var pos = this.bodies.position;
-
+    display() {
+        var angle = this.body.angle;
+        var pos = this.body.position;
         push();
-        translate(pos.x,pos.y);
-        ellipseMode(CENTER);
-        ellipse(0,0,this.r);
+        translate(pos.x, pos.y);
+        rotate(angle);
+        noStroke();
+        fill(this.color);
+        ellipse(0, 0, 60, 60);
         pop();
     }
 }
