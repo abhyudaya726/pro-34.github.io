@@ -1,56 +1,56 @@
-const Engine = Matter.Engine;
-const World= Matter.World;
+onst Engine = Matter.Engine;
+const World = Matter.World;
 const Bodies = Matter.Bodies;
+const Body = Matter.Body;
+const Mouse = Matter.Mouse;
 const Constraint = Matter.Constraint;
+const MouseConstraint = Matter.MouseConstraint;
 
-var engine, world;
-
-var roof;
-
-var chain,chain2,chain3,chain4,chain5;
-
-var bob1,bob2,bob3,bob4,bob5;
+var canvas;
+var world, engine;
+var pendulum1, pendulum2, pendulum3, pendulum4, pendulum5;
+var sling1, sling2, sling3, sling4, sling5;
+var mConstraint;
 
 function setup(){
-    canvas = createCanvas(800,400);
+    canvas = createCanvas(800, 800);
+  
     engine = Engine.create();
-    world = engine.world;
+   world = engine.world;
 
-    roof = new Roof(400,100,500,10);
+   let canvasmouse = Mouse.create(canvas.elt);
+   canvasmouse.pixelRatio = pixelDensity();
+   let options ={
+       mouse:canvasmouse
+   };
+   mConstraint = MouseConstraint.create(engine, options);
+   World.add(world, mConstraint);
 
-    bob1 = new Bob(400,300,30);
-    bob2 = new Bob(460,300,30);
-    bob3 = new Bob(340,300,30);
-    bob4 = new Bob(520,300,30);
-    bob5 = new Bob(280,300,30);
-
-    chain = new Chain(bob1.bodies,{x:400,y:100});
-    chain2 = new Chain(bob2.bodies,{x:460,y:100});
-    chain3 = new Chain(bob3.bodies,{x:340,y:100});
-    chain4 = new Chain(bob4.bodies,{x:520,y:100});
-    chain5 = new Chain(bob5.bodies,{x:280,y:100});
-    
+   pendulum1 = new Pendulum(340, 450, "white");
+   pendulum2 = new Pendulum(400, 450, "white");
+   pendulum3 = new Pendulum(460, 450, "white");
+   pendulum4 = new Pendulum(520, 450, "white"); 
+   pendulum5 = new Pendulum(580, 450, "white");
+   sling1 = new Sling(pendulum1.body, { x: 340, y: 200 }); 
+   sling2 = new Sling(pendulum2.body, { x: 400, y: 200 }); 
+   sling3 = new Sling(pendulum3.body, { x: 460, y: 200 }); 
+   sling4 = new Sling(pendulum4.body, { x: 520, y: 200 }); 
+   sling5 = new Sling(pendulum5.body, { x: 580, y: 200 });
 }
-
 function draw(){
-    background(51);
-    Engine.update(engine);
-    
-    roof.display();
-
-    bob1.display();
-    bob2.display();
-    bob3.display();
-    bob4.display();
-    bob5.display();
-
-    chain.display();
-    chain2.display();
-    chain3.display();
-    chain4.display();
-    chain5.display();
+     background(0);
+     Engine.update(engine);
+     pendulum1.display();
+     pendulum2.display();
+     pendulum3.display();
+     pendulum4.display();
+     pendulum5.display();
+     sling1.display();
+     sling2.display();
+     sling3.display();
+     sling4.display();
+     sling5.display();
 }
-
 function mouseDragged(){
-    Matter.Body.setPosition(bob4.bodies,{x:mouseX,y:mouseY});
+    Matter.Body.setPosition(pendulum1.body, {x: mouseX, y:mouseY});
 }
